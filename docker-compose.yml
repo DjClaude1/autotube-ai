@@ -1,0 +1,45 @@
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: autotube-ai-server
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379
+      PORT: 4000
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    command: ["node", "dist/index.js"]
+
+  worker:
+    image: autotube-ai-server
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+      api:
+        condition: service_started
+    command: ["node", "dist/worker.js"]
+
+volumes:
+  redis-data: {}
