@@ -11,6 +11,7 @@ coverage/
 .vercel
 .turbo
 .pnpm-store/
+*.tsbuildinfo
 tmp/
 work/
 *.mp4
