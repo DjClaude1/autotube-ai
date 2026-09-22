@@ -10,7 +10,9 @@
     "start": "node dist/index.js",
     "start:worker": "node dist/worker.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint \"src/**/*.ts\""
+    "lint": "eslint \"src/**/*.ts\"",
+    "kids:dev": "tsx watch src/kids-worker.ts",
+    "start:kids": "node dist/kids-worker.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
