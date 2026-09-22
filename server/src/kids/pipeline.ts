@@ -66,7 +66,7 @@ Return exactly 12-14 short scenes. Each narration is 8-22 spoken words. Visual a
     for(let i=0;i<scenes.length;i++){
       const svg=path.join(work,`scene-${i}.svg`), clip=path.join(work,`scene-${i}.mp4`);
       await writeFile(svg,makeSvg(script.scenes[i]?.visual??"Milo and Momo explore a colorful garden",script.scenes[i]?.action??"They smile and wave",i));
-      await ffmpeg(["-y","-loop","1","-i",svg,"-t",(scenes[i]!.endSec-scenes[i]!.startSec).toFixed(3),"-vf",`scale=${env.RENDER_WIDTH}:${env.RENDER_HEIGHT}:force_original_aspect_ratio=decrease,pad=${env.RENDER_WIDTH}:${env.RENDER_HEIGHT}:(ow-iw)/2:(oh-ih)/2,zoompan=z='min(zoom+0.0007,1.08)':d=1:s=${env.RENDER_WIDTH}x${env.RENDER_HEIGHT}:fps=${env.RENDER_FPS},subtitles='${srt.replace(/\\/g,"\\\\").replace(/:/g,"\\:").replace(/'/g,"\\'")}' :si=0:force_style='FontName=DejaVu Sans,FontSize=14,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=2,Alignment=2,MarginV=80'`,"-an","-c:v","libx264","-pix_fmt","yuv420p","-preset","veryfast","-crf","23",clip]);
+      await ffmpeg(["-y","-loop","1","-i",svg,"-t",(scenes[i]!.endSec-scenes[i]!.startSec).toFixed(3),"-vf",`scale=${env.RENDER_WIDTH}:${env.RENDER_HEIGHT}:force_original_aspect_ratio=decrease,pad=${env.RENDER_WIDTH}:${env.RENDER_HEIGHT}:(ow-iw)/2:(oh-ih)/2,zoompan=z='min(zoom+0.0007,1.08)':d=1:s=${env.RENDER_WIDTH}x${env.RENDER_HEIGHT}:fps=${env.RENDER_FPS}`,"-an","-c:v","libx264","-pix_fmt","yuv420p","-preset","veryfast","-crf","23",clip]);
       clips.push(clip);
     }
     const list=path.join(work,"concat.txt"); await writeFile(list,clips.map(x=>`file '${x.replace(/'/g,"'\\''")}'`).join("\n"));
