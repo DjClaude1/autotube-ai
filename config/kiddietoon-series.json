@@ -1,0 +1,13 @@
+{
+  "seriesName": "Milo & Momo's Wonder Garden",
+  "targetAge": "4-8",
+  "episodeLengthSeconds": {"min": 120, "max": 300},
+  "dailyPublishing": true,
+  "requiresHumanApproval": true,
+  "youtube": {"madeForKids": true},
+  "characters": [
+    {"name":"Milo","role":"main character","visualLock":"original 7-year-old fox child, orange fur, teal backpack, rounded preschool proportions, expressive friendly eyes","personality":"curious, kind, playful"},
+    {"name":"Momo","role":"companion","visualLock":"original small floating cloud creature, soft white body, rainbow sparkles, simple expressive face, rounded preschool proportions","personality":"gentle, funny, encouraging"}
+  ],
+  "episodeOne": {"title":"The Rainbow Seed","lesson":"kindness and caring for growing things","sceneCount":14}
+}
